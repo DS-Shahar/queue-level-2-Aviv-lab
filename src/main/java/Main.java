@@ -1,3 +1,56 @@
+public class Queue_Level_2
+{
+	public static void main(String[] args)
+	{
+		Queue<String> q1 = new Queue<String>();
+		q1.insert("Hi");
+		q1.insert("Gi");
+		q1.insert("Hi");
+		System.out.println(level2_ex2(q1));
+	}
+	public static <T> Queue<T> QueueCopy(Queue<T> q1)
+    {
+        Queue<T> q2=new Queue<T>();
+        Queue<T> q3=new Queue<T>();
+        while (!q1.isEmpty())
+        {
+            T a= q1.remove();
+            q2.insert(a);
+            q3.insert(a);
+        }    
+        while (!q3.isEmpty())
+            q1.insert(q3.remove());
+        return q2;      
+    }
+    public static boolean level2_ex2(Queue<String> q1)
+    {
+        Queue<String> q2=QueueCopy(q1);
+        Queue<String> q3=QueueCopy(q1);
+        int a=0;
+        while(!q3.isEmpty())
+        {
+            a++;
+            q3.remove();
+        }
+        for (int i=0; i<a; i++)
+        {
+            String b=q2.remove();
+            q3=QueueCopy(q1);
+            for (int j=0; j<a; j++)
+            {
+                String c=q3.remove();
+                if (i!=j)
+                {
+                    if (b.equals(c))
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+}
+
+--------------------------------------------------
 public class Queue_Base_Sort
 {
     public static void main(String[] args) 
