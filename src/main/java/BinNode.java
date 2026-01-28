@@ -65,5 +65,24 @@ public class BinNode<T> {
     		if (left == null && right == null)
       			return value.toString();
 		return "( " + left + " " + value + " " + right + " )";
-  	}	
+  	}
+
+	private void display(BinNode<T> node, String prefix, boolean isLeft) {
+        // 1. Recurse Right (Top child of this node)
+        if (node.hasRight()) {
+            // If we are the bottom child (isLeft), the vertical bar | passes through us to
+            // the top
+            display(node.getRight(), prefix + (isLeft ? "│   " : "    "), false);
+        }
+ 
+        // 2. Print Current Node
+        System.out.println(prefix + (isLeft ? "└── " : "┌── ") + node.getValue());
+ 
+        // 3. Recurse Left (Bottom child of this node)
+        if (node.hasLeft()) {
+            // If we are the top child (!isLeft), the vertical bar | passes through us to
+            // the bottom
+            display(node.getLeft(), prefix + (isLeft ? "    " : "│   "), true);
+        }
+    }
 }
