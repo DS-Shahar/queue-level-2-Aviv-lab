@@ -98,5 +98,6 @@ public class BinNode<T> {
         if (this.hasRight()) {
             display(this.getRight(), "", true);
         }
+        System.out.println("-------------tree-------------");
     }
 }
