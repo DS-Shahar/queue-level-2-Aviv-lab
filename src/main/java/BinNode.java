@@ -67,29 +67,36 @@ public class BinNode<T> {
 		return "( " + left + " " + value + " " + right + " )";
   	}
 
-	private void display(BinNode<T> node, String prefix, boolean isLeft) {
-        // 1. Recurse Right (Top child of this node)
-        if (node.hasRight()) {
-            // If we are the bottom child (isLeft), the vertical bar | passes through us to
-            // the top
-            display(node.getRight(), prefix + (isLeft ? "│   " : "    "), false);
-        }
- 
-        // 2. Print Current Node
-        System.out.println(prefix + (isLeft ? "└── " : "┌── ") + node.getValue());
- 
-        // 3. Recurse Left (Bottom child of this node)
-        if (node.hasLeft()) {
-            // If we are the top child (!isLeft), the vertical bar | passes through us to
-            // the bottom
-            display(node.getLeft(), prefix + (isLeft ? "    " : "│   "), true);
-        }
+	private void display(BinNode<T> node, String prefix, boolean isRight) {
+    // 1. Recurse Left (Now the TOP child)
+    if (node.hasLeft()) {
+        // If we are currently a bottom child (isRight), 
+        // the vertical bar │ must continue upward.
+        display(node.getLeft(), prefix + (isRight ? "│   " : "    "), false);
     }
-    public void display() {
-        if (right!=null)
-            display(this, "", false);
-        System.out.println(value);
-        if (left!=null)
-            display(this, "", true);
+
+    // 2. Print Current Node
+    // Using ┌── for the top child and └── for the bottom child
+    System.out.println(prefix + (isRight ? "└── " : "┌── ") + node.getValue());
+
+    // 3. Recurse Right (Now the BOTTOM child)
+    if (node.hasRight()) {
+        // If we are currently a top child (!isRight), 
+        // the vertical bar │ must continue downward.
+        display(node.getRight(), prefix + (isRight ? "    " : "│   "), true);
     }
+}
+
+public void display() {
+    // Start by treating the root's children correctly
+    if (this.hasLeft()) {
+        display(this.getLeft(), "", false);
+    }
+    
+    System.out.println(this.getValue());
+    
+    if (this.hasRight()) {
+        display(this.getRight(), "", true);
+    }
+  }
 }
