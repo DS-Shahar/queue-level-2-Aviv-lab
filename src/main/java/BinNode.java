@@ -85,4 +85,11 @@ public class BinNode<T> {
             display(node.getLeft(), prefix + (isLeft ? "    " : "│   "), true);
         }
     }
+    public void display() {
+        if (right!=null)
+            display(this, "", false);
+        System.out.println(value);
+        if (left!=null)
+            display(this, "", true);
+    }
 }
